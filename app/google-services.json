@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "643289708308",
+    "project_id": "itube-f242f",
+    "storage_bucket": "itube-f242f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643289708308:android:8091fc56651ec8607a7401",
+        "android_client_info": {
+          "package_name": "com.example.itube"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643289708308-rfnhm97t81d97638uq2sj9v6bo2pnd7q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFg2BG6BS73GAHY-yW4fDYDEeBqliYpZo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643289708308-rfnhm97t81d97638uq2sj9v6bo2pnd7q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
