@@ -49,7 +49,6 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         binding.homeAddToPlayListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +76,25 @@ public class HomeActivity extends AppCompatActivity {
                                 Toast.makeText(HomeActivity.this, "Error adding URL", Toast.LENGTH_SHORT).show();
                             }
                         });
+            }
+        });
+        binding.homeViewPlayListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                startActivity(intent);
+            }
+        });
+        binding.homePlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(TextUtils.isEmpty(binding.homeURLText.getText().toString())){
+                    Toast.makeText(HomeActivity.this, "No url to play", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(getApplicationContext(), PlayActivity.class);
+                intent.putExtra("url", binding.homeURLText.getText().toString());
+                startActivity(intent);
             }
         });
     }
