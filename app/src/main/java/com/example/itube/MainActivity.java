@@ -61,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        binding.mainSignupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),SignupActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private Boolean validateInput(String email, String password){
