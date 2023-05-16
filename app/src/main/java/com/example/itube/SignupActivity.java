@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
+    // declare vriables
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     ActivitySignupBinding binding;
@@ -30,13 +31,17 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // set up binding
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        // set up firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        // hide progress bar
         binding.signupProgressBar.setVisibility(View.GONE);
 
+        // back button to login screen
         binding.signupBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,22 +50,30 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+        // sign up button
         binding.signupSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // show progress bar
                 binding.signupProgressBar.setVisibility(View.VISIBLE);
+                // save inputs to variables
                 String name = binding.signupFirstNameText.getText().toString();
                 String sName = binding.signupSurnameText.getText().toString();
                 String password = binding.signupPasswordText.getText().toString();
                 String confirmPassword = binding.signupConfirmPassword.getText().toString();
                 String email = binding.signupEmailText.getText().toString();
+                //call validate method to make sure all inputs are flled in
                 if(!validateInput(name, sName, password, confirmPassword, email)) return;
 
+                // use firebase to create a new user
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            // if successful create a user in the data base for new user.
+                            // their video links will be saved under each user
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
+                                    // create a userMap to upload to firebase database
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Map<String, Object> userMap = new HashMap<>();
                                     userMap.put("name", name);
@@ -68,9 +81,11 @@ public class SignupActivity extends AppCompatActivity {
                                     userMap.put("email", email);
                                     userMap.put("id", user.getUid());
 
+                                    // put the usermap into the database, with the user id setting the document name
                                     db.collection("users").document(user.getUid())
                                             .set(userMap)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                // if successful, close progress bar, load the home page
                                                 @Override
                                                 public void onSuccess(Void unused) {
                                                     Toast.makeText(SignupActivity.this, "Successful Registration", Toast.LENGTH_SHORT).show();
@@ -80,6 +95,7 @@ public class SignupActivity extends AppCompatActivity {
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
+                                                // if failure, alert user, and remove the user from authenticated users
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
                                                     binding.signupProgressBar.setVisibility(View.GONE);
@@ -102,7 +118,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
     }
-
+    // this methid just ensures fields are not empty and passwords match
     private Boolean validateInput(String name, String sName, String password, String confirmPassword, String email){
         if(TextUtils.isEmpty(name)){
             Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show();

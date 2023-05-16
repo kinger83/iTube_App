@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
+// Standard Adapter for recycler view
 public class UrlAdapter extends RecyclerView.Adapter<UrlAdapter.UrlViewHolder> {
     private ArrayList<String> urls;
     private  Context context;
