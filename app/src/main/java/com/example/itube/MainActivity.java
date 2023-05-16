@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
         binding.mainProgressBar.setVisibility(View.GONE);
         mAuth = FirebaseAuth.getInstance();
-        Log.d("Package Name:", getPackageName());
 
         binding.mainLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
